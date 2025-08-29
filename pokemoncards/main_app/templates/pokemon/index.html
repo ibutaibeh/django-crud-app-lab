@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{% block content%}
+<div style="display: flex; gap: 10rem;">
+{% for pokemon in pokemons%}
+
+<div class= "card" style="width: 18rem;" >
+
+    <div class="card" style="width: 18rem;">
+        {%load static%}
+    <img src="{% static pokemon.image|cut:'main_app/static/'%}" class="card-img-top" width="100px" height="200px" alt="Pokemon Image">
+    </div>
+
+    <div style="justify-items: center;" >
+    <h4 >{{pokemon.name}} </h4>   
+    </div> 
+    <div style="align-self: center;" >
+        <a href="{% url 'details' pokemon.id%}">View more Details</a>
+    </div>
+</div>
+
+{%endfor%}
+
+</div>
+{%endblock%}

@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{% block content%}
+<div style="display: flex; gap: 10rem;">
+<div class= "card" style="width: 18rem;" >
+
+    <div class="card" style="width: 18rem;">
+        {%load static%}
+    <img src="{% static pokemon.image|cut:'main_app/static/'%}" class="card-img-top" alt="Pokemon Image">
+    </div>
+
+    <div >
+    <p >Name: {{pokemon.name}} </p>
+    <p >Type: {{pokemon.type}}</p>
+    <p >Weakness: {{pokemon.weakness}}</p>
+    <p >Power: {{pokemon.power}}</p>     
+    </div> 
+</div>
+</div>
+{%endblock%}
