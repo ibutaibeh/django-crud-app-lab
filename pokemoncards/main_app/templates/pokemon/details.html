@@ -1,19 +1,70 @@
-{%extends 'base.html'%}
-{% block content%}
+{% extends 'base.html' %}
+{% block content %}
 <div style="display: flex; gap: 10rem;">
-<div class= "card" style="width: 18rem;" >
 
     <div class="card" style="width: 18rem;">
-        {%load static%}
-    <img src="{% static pokemon.image|cut:'main_app/static/'%}" class="card-img-top" alt="Pokemon Image">
+
+        <div class="card" style="width: 18rem;">
+            {% load static %}
+            <img src="{% static pokemon.image|cut:'main_app/static/' %}" class="card-img-top" alt="Pokemon Image">
+        </div>
+
+        <div>
+            <p>Name: {{ pokemon.name }} </p>
+            <p>Type: {{ pokemon.type }}</p>
+            <p>Weakness: {{ pokemon.weakness }}</p>
+            <p>Power: {{ pokemon.power }}</p>
+        </div>
+
+        <a href="{% url 'pokemon_update' pokemon.id %}" class="btn btn-warning btn-sm mt-2">Edit</a>
+        <a href="{% url 'pokemon_delete' pokemon.id %}" class="btn btn-danger btn-sm mt-2">Delete</a>
     </div>
 
-    <div >
-    <p >Name: {{pokemon.name}} </p>
-    <p >Type: {{pokemon.type}}</p>
-    <p >Weakness: {{pokemon.weakness}}</p>
-    <p >Power: {{pokemon.power}}</p>     
-    </div> 
+    <div>
+        {% load widget_tweaks %}
+        <form action="{% url 'add_purchase' pokemon.id %}" method="post" class="mt-3">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_date" class="form-label">Date</label>
+                {{ purchase_form.date|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_rarity" class="form-label">Rarity</label>
+                {{ purchase_form.rarity|add_class:"form-select" }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Purchase</button>
+        </form>
+    </div>
+
+    <div class="mt-4">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Rarity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in pokemon.purchase_set.all %}
+                <tr>
+                    <td>{{ purchase.date|date:"M d, Y" }}</td>
+                    <td>{{ purchase.get_rarity_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-</div>
-{%endblock%}
+<script>
+  $(document).ready(function(){
+      $('#id_date').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true
+      });
+  });
+</script>
+{% endblock %}
