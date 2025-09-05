@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Toy Details</h1>
+<div>
+  <div>
+    <div>
+      <div>
+        <span>{{ accessory.name }}</span>
+        <p>Color: {{ accessory.color }}</p>
+      </div>
+      <div>
+        <a href="{% url 'accessory_update' accessory.id %}">Edit</a>
+        <a href="{% url 'accessory_delete' accessory.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

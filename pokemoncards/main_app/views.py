@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Pokemon
+from .models import Pokemon, Accessory
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .forms import PurchaseForm
 # Create your views here.
 class PokemonCreate(CreateView):
@@ -33,3 +34,22 @@ def add_purchase(request,pokemon_id):
         new_purchase.pokemon_id=pokemon_id
         new_purchase.save()
         return redirect('details',pokemon_id=pokemon_id)
+
+
+#Accessory CBVs views
+
+class AccessoryList(ListView):
+    model = Accessory
+class AccessoryDetail(DetailView):
+    model=Accessory
+class AccessoryCreate(CreateView):
+    model=Accessory
+    fields= '__all__' # this means all field in the model (shortcut)
+
+class AccessoryUpdate(UpdateView):
+    model=Accessory
+    fields='__all__'
+
+class AccessoryDelete(DeleteView):
+    model=Accessory
+    success_url='/accessory/'

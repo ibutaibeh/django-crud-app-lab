@@ -31,6 +31,12 @@
       <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'pokemon_create'%}active{%endif%}" href="{% url 'pokemon_create' %}">Add Pokemon Card</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'accessory_create'%}active{%endif%} " href="{% url 'accessory_create' %}">Add Accessory</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'accessory_index'%}active{%endif%} " href="{% url 'accessory_index' %}">View All Accessory</a>
+      </li>      
     </ul>
     </nav>
 <main class="flex-fill">
